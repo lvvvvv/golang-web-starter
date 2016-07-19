@@ -1,0 +1,16 @@
+debug = true
+
+[api]
+version = "1"
+jwt_secret = "asdfweasdesfdsf"
+
+[database]
+driver = "postgres"
+uri = "host=104.199.162.132 user=skipper password=123123123 dbname=cozy_dev sslmode=disable"
+pool = 16
+cache_enabled = false
+cache_namespace = "prefix:"
+cache_redis_addr = ""
+cache_redis_pwd  = ""
+
+[worker]
