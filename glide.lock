@@ -1,5 +1,5 @@
-hash: e880686494530f6dce556437d1f95852923f9f8f6bd23fba985a0ade76383a4c
-updated: 2016-07-19T12:29:39.024955469+08:00
+hash: b0f526255e3da3492445c75807be69b48141d25be0d92f853bbc865d0524b69f
+updated: 2016-07-19T13:38:51.353260791+08:00
 imports:
 - name: github.com/ajg/form
   version: 7ff89c75808766205bfa4411abb436c98c33eb5e
@@ -56,10 +56,13 @@ imports:
   version: 32009bbc76eda475a6d1eb24787d1fdcdaf80e71
 - name: github.com/iris-contrib/logger
   version: 6a08b11d1faefa8ce79ed6d6efec9d2e05cbc549
-- name: github.com/iris-contrib/template
-  version: 7f56cb15ccc843e34c1d17327c276f0f90ad6f5c
+- name: github.com/iris-contrib/middleware
+  version: ec90193d8e82737647049cb870ebc6381c6ad087
   subpackages:
-  - html
+  - cors
+  - i18n
+  - logger
+  - recovery
 - name: github.com/iris-contrib/websocket
   version: a2c30084384c39ce6595169df8b93d7298ac04cd
 - name: github.com/jmoiron/sqlx
@@ -138,6 +141,8 @@ imports:
   subpackages:
   - assert
   - require
+- name: github.com/Unknwon/i18n
+  version: 39d6f2727e0698b1021ceb6a77c1801aa92e7d5d
 - name: github.com/valyala/bytebufferpool
   version: 8ebd0474e5a2f0a5c7a74ad2bf421a1d1a90264f
 - name: github.com/valyala/fasthttp
@@ -165,6 +170,8 @@ imports:
   version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
   subpackages:
   - unix
+- name: gopkg.in/ini.v1
+  version: cf53f9204df4fbdd7ec4164b57fa6184ba168292
 - name: gopkg.in/mgutz/dat.v1
   version: 12949dfa90b45a1a62e6227fc1607c4fa1a3274c
   subpackages:
