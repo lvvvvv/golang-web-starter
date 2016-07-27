@@ -7,6 +7,7 @@ the minimal starter to build web/webapi projects
  - general iris middlewares setup
  - support i18n
  - included db and redis cache setup
+ - jwt for api auth
 
 ## How to start
   - clone the project and rename as yours
