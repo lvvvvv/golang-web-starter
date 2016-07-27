@@ -27,7 +27,7 @@ func main() {
 	flag.StringVar(&cfg.Database.Driver, "db-driver", "postgres", "database driver")
 	flag.IntVar(&cfg.Database.Pool, "db-pool", 16, "database pool")
 	flag.StringVar(&cfg.Database.Addr, "db-addr", "localhost:5432", "database addr")
-	flag.StringVar(&cfg.Database.Name, "db-name", "cozy_dev", "database name")
+	flag.StringVar(&cfg.Database.Name, "db-name", "starter_dev", "database name")
 	flag.StringVar(&cfg.Database.User, "db-user", "sykipper", "database user")
 	flag.StringVar(&cfg.Database.Pass, "db-pass", "123123123", "database pass")
 	flag.BoolVar(&cfg.Database.SSL, "db-ssl", false, "database tls")
