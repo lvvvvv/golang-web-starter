@@ -11,6 +11,11 @@ the minimal starter to build web/webapi projects
 ## How to start
   - clone the project and rename as yours
   - modify main.go import path by yours package name
+
+  - create database (in example, the db name is 'starter')
+  - edit dbconf.yml with your db setting
+  - download & install goose (bitbucket.org/liamstask/goose/cmd/goose)
+  - exec mirgation (cmd: goose up)
   - download & install glide (https://github.com/Masterminds/glide)
   - exec glide install
   - exec go run main.go
