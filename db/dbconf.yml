@@ -1,0 +1,15 @@
+test:
+    driver: postgres
+    open: dbname=192.168.0.133 user=postgres password=123123123 dbname=whiteraven_test sslmode=disable
+
+development:
+    driver: postgres
+    open: dbname=192.168.0.133 user=postgres password=123123123 dbname=whiteraven_dev sslmode=disable
+
+production:
+    driver: postgres
+    open: dbname=192.168.0.133 user=postgres password=123123123 dbname=whiteraven_dev sslmode=disable
+
+environment_variable_config:
+    driver: $DB_DRIVER
+    open: $DATABASE_URL

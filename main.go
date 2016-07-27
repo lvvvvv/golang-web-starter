@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.acsdev.net/starters/golang-web-starter/server"
-
 	"github.com/kataras/iris"
+
+	"github.acsdev.net/starters/golang-web-starter/config"
+	"github.acsdev.net/starters/golang-web-starter/web"
 )
 
 func die(format string, v ...interface{}) {
@@ -17,40 +18,43 @@ func die(format string, v ...interface{}) {
 
 func main() {
 
-	var configFile string
-
-	cfg := server.NewDefaultConfig()
+	cfg := config.Default()
 
 	// Parse flags
 	flag.BoolVar(&cfg.Debug, "D", true, "Enable Debug logging.")
-	flag.StringVar(&cfg.Addr, "a", ":3000", "Network host to listen on.")
+
+	flag.BoolVar(&cfg.Database.Enabled, "db-enabled", true, "database enabled")
 	flag.StringVar(&cfg.Database.Driver, "db-driver", "postgres", "database driver")
 	flag.IntVar(&cfg.Database.Pool, "db-pool", 16, "database pool")
-	flag.StringVar(&cfg.Database.ConnString, "db-conn", "dbname=whiteraven_dev user=postgres password=123123123 host=10.20.30.11 sslmode=disable", "database connection string")
+	flag.StringVar(&cfg.Database.Addr, "db-addr", "localhost:5432", "database addr")
+	flag.StringVar(&cfg.Database.Name, "db-name", "cozy_dev", "database name")
+	flag.StringVar(&cfg.Database.User, "db-user", "sykipper", "database user")
+	flag.StringVar(&cfg.Database.Pass, "db-pass", "123123123", "database pass")
+	flag.BoolVar(&cfg.Database.SSL, "db-ssl", false, "database tls")
 
-	flag.StringVar(&configFile, "c", "config/config.toml", "Configuration file.")
+	flag.BoolVar(&cfg.Redis.Enabled, "redis-enabled", true, "redis enabled")
+	flag.StringVar(&cfg.Redis.Addr, "redis-addr", "192.168.0.133:6379", "redis addr")
+	flag.StringVar(&cfg.Redis.Pass, "redis-pass", "123123123", "redis pass")
+
+	flag.StringVar(&cfg.Web.Addr, "web-addr", ":3000", "web server addr listen on.")
+	flag.StringVar(&cfg.Web.RootDir, "web-rootdir", ".", "web server root dir")
+	flag.StringVar(&cfg.Web.PublicDir, "web-publicdir", "public", "web server public dir")
+	flag.StringVar(&cfg.Web.JwtSecret, "web-jwtsecret", "ad4wgsfserqfg2", "web jwt secret")
 
 	flag.Parse()
 
-	// Parse config if given
-	if configFile != "" {
-		fmt.Printf("loading config file %s\n", configFile)
-		if err := cfg.ParseToml(configFile); err != nil {
-			die("Failure to parse config, %v", err)
-		}
-	}
+	config.ConfigureIris(&cfg)
 
-	err := server.SetupDatabase(cfg)
-	if err != nil {
-		die("failure to setup database %v\n", err)
-	}
+	//connect db, return nil if not enabled
+	_ = config.ConfigureDatabase(&cfg)
 
-	server.SetupIris(cfg)
+	//connect redis, return nil if not enabled
+	_ = config.ConfigureRedis(&cfg)
 
 	// register the routes & the public API
-	server.RegisterRoutes()
-	server.RegisterAPI()
+	web.RegisterRoutes(&cfg)
 
-	// start the server
-	iris.Listen(cfg.Addr)
+	//start the web server
+	iris.Listen(cfg.Web.Addr)
+
 }
